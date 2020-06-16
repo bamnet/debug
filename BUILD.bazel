@@ -1,0 +1,42 @@
+load("@npm_bazel_typescript//:index.bzl", "ts_devserver", "ts_library")
+load("@npm_bazel_rollup//:index.bzl", "rollup_bundle")
+load("@build_bazel_rules_nodejs//:index.bzl", "pkg_web")
+
+exports_files(
+    ["tsconfig.json"],
+    visibility = ["//visibility:public"],
+)
+
+ts_library(
+    name = "app",
+    srcs = glob(["*.ts"]),
+    deps = [
+        "@npm//tui-chart",
+    ],
+)
+
+ts_devserver(
+    name = "devserver",
+    port = 8080,
+    serving_path = "/bundle.js",
+    static_files = [
+        "index.html",
+    ],
+    deps = [":app"],
+)
+
+rollup_bundle(
+    name = "bundle",
+    entry_point = "test.ts",
+    deps = [
+        ":app",
+    ],
+)
+
+pkg_web(
+    name = "prodapp",
+    srcs = [
+        "index.html",
+        ":bundle",
+    ],
+)
