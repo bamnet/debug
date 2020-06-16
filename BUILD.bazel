@@ -1,6 +1,4 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_devserver", "ts_library")
-load("@npm_bazel_rollup//:index.bzl", "rollup_bundle")
-load("@build_bazel_rules_nodejs//:index.bzl", "pkg_web")
 
 exports_files(
     ["tsconfig.json"],
