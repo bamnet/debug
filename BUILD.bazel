@@ -24,19 +24,3 @@ ts_devserver(
     ],
     deps = [":app"],
 )
-
-rollup_bundle(
-    name = "bundle",
-    entry_point = "test.ts",
-    deps = [
-        ":app",
-    ],
-)
-
-pkg_web(
-    name = "prodapp",
-    srcs = [
-        "index.html",
-        ":bundle",
-    ],
-)
